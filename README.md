@@ -1,2 +1,31 @@
-An online library system where students can store study resources, view professor/senior recommendations, manage personal notes, and handle files like merge logs and reference material.
-It also includes student record management and useful file-handling operations as part of the required project functionality.
+Stash is a study companion built using Python and Flask. 
+It allows users to register and login to their accounts, and access various study resources as well as add their own resources. Users can create and study from flashcards, and also study with the help of study timers according to popular and scientifically proven study techniques. 
+
+Tech Stack 
+Python
+Flask
+HTML & CSS
+File handling (text files)
+
+stash/
+│
+├── app.py
+├── users.txt
+├── resources.txt
+├── flashcards.txt
+├── usage_log.txt
+│
+├── templates/
+│   ├── base.html
+│   ├── login.html
+│   ├── register.html
+│   ├── home.html
+│   ├── add_resource.html
+│   ├── resources.html
+│   ├── flashcards.html
+│   ├── timer.html
+│   └── contributors.html
+│
+└── README.md
+
+The backend is written in Python and structured around well defined routes and functions. It manages user authetication, resource handling, flashcards, timers, activity logging. Instead of using a typical database, all the data is stored in text files keeping the logic simple, transparent and easy to understand. 
