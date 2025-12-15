@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Flashcards</h2>
+
+<h3>Add Flashcard</h3>
+
+<form method="POST">
+    <label>Subject</label>
+    <input type="text" name="subject" required>
+
+    <label>Unit</label>
+    <input type="text" name="unit" required>
+
+    <label>Question</label>
+    <input type="text" name="question" required>
+
+    <label>Answer</label>
+    <textarea name="answer" rows="3" required></textarea>
+
+    <button type="submit">Add Flashcard</button>
+</form>
+
+<hr>
+
+<h3>Your Flashcards</h3>
+
+{% for subject, units in grouped_cards.items() %}
+    <div class="card">
+        <h4>{{ subject }}</h4>
+
+        {% for unit, cards in units.items() %}
+            <p><b>Unit:</b> {{ unit }}</p>
+
+            {% for q, a in cards %}
+                <div style="margin-left:15px; margin-bottom:10px;">
+                    <p><b>Q:</b> {{ q }}</p>
+                    <p><b>A:</b> {{ a }}</p>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% else %}
+<p>No flashcards yet.</p>
+{% endfor %}
+
+<a href="/home">Back to Home</a>
+
+{% endblock %}

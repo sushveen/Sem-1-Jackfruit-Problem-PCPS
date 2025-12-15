@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title if title else "Stash" }}</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #F2D2D5;
+            margin: 0;
+            color: #4A2E2E;
+        }
+
+        header {
+            background-color: #DFB2B5;
+            padding: 16px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header a {
+            color: #4A2E2E;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #EDCECC;
+            padding: 30px;
+            border-radius: 14px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            border: 1px solid #C79A97;
+            background: #FFF5F6;
+        }
+
+        button {
+            background-color: #C79A97;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #A96461;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #C79A97;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .menu a:hover {
+            background: #A96461;
+        }
+
+        .card {
+            background: #FFF5F6;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Stash</h1>
+    <a href="/contributors">Contributors</a>
+</header>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    Stash · Python + Flask · File Handling Project
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Resources</h2>
+
+<form method="GET">
+    <input type="text" name="search" placeholder="Search resources">
+    <button type="submit">Search</button>
+</form>
+
+{% for r in resources %}
+<div class="card">
+    <h3>{{ r[1] }}</h3>
+    <p><b>Category:</b> {{ r[2] }}</p>
+    <p>{{ r[4] }}</p>
+    <a href="{{ r[3] }}" target="_blank">Open Resource</a>
+</div>
+{% else %}
+<p>No resources found.</p>
+{% endfor %}
+
+<a href="/home">Back to Home</a>
+
+{% endblock %}
