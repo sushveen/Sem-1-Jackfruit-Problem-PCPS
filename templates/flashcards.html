@@ -1,49 +1,64 @@
 {% extends "base.html" %}
 {% block content %}
-
 <h2>Flashcards</h2>
-
 <h3>Add Flashcard</h3>
-
 <form method="POST">
-    <label>Subject</label>
-    <input type="text" name="subject" required>
-
-    <label>Unit</label>
-    <input type="text" name="unit" required>
-
-    <label>Question</label>
-    <input type="text" name="question" required>
-
-    <label>Answer</label>
-    <textarea name="answer" rows="3" required></textarea>
-
-    <button type="submit">Add Flashcard</button>
+    <input name="subject" placeholder="Subject" required>
+    <input name="unit" placeholder="Unit" required>
+    <input name="question" placeholder="Question" required>
+    <textarea name="answer" placeholder="Answer" rows="3" required></textarea>
+    <button>Add Flashcard</button>
 </form>
-
 <hr>
-
-<h3>Your Flashcards</h3>
-
-{% for subject, units in grouped_cards.items() %}
-    <div class="card">
-        <h4>{{ subject }}</h4>
-
-        {% for unit, cards in units.items() %}
-            <p><b>Unit:</b> {{ unit }}</p>
-
-            {% for q, a in cards %}
-                <div style="margin-left:15px; margin-bottom:10px;">
-                    <p><b>Q:</b> {{ q }}</p>
-                    <p><b>A:</b> {{ a }}</p>
-                </div>
-            {% endfor %}
+<h3>Study</h3>
+<form method="GET">
+    <select name="subject" onchange="this.form.submit()">
+        <option value="">Subject</option>
+        {% for s in subjects %}
+            <option value="{{ s }}" {{ "selected" if s==selected_subject else "" }}>
+                {{ s }}
+            </option>
         {% endfor %}
+    </select>
+    {% if selected_subject %}
+        <select name="unit" onchange="this.form.submit()">
+            <option value="">Unit</option>
+            {% for u in subjects[selected_subject] %}
+                <option value="{{ u }}" {{ "selected" if u==selected_unit else "" }}>
+                    {{ u }}
+                </option>
+            {% endfor %}
+        </select>
+    {% endif %}
+</form>
+{% if selected_subject and selected_unit %}
+    <p>
+        <a href="?subject={{ selected_subject }}&unit={{ selected_unit }}&mode=view">View</a> |
+        <a href="?subject={{ selected_subject }}&unit={{ selected_unit }}&mode=quiz">Quiz</a>
+    </p>
+{% endif %}
+{% if mode and (cards or quiz_card) %}
+    <hr>
+    <div class="card">
+        {% if mode == "view" %}
+            {% for q, a in cards %}
+                <p><b>Q:</b> {{ q }}</p>
+                <p><b>A:</b> {{ a }}</p>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p><b>Question:</b> {{ quiz_card[0] }}</p>
+            <details>
+                <summary>Show Answer</summary>
+                <p>{{ quiz_card[1] }}</p>
+            </details>
+            <a href="?subject={{ selected_subject }}&unit={{ selected_unit }}&mode=quiz">
+                Next
+            </a>
+        {% endif %}
     </div>
-{% else %}
-<p>No flashcards yet.</p>
-{% endfor %}
-
-<a href="/home">Back to Home</a>
-
+{% elif not selected_subject or not selected_unit %}
+    <p>Select a subject and unit to start.</p>
+{% endif %}
+<a href="/home">Back</a>
 {% endblock %}
